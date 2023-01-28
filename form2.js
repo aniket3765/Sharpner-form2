@@ -14,10 +14,7 @@ function onsubmit(e){
     setTimeout(()=> msg.remove(),3000);
    } 
    else{
-    const li = document.createElement("li");
-    li.appendChild(document.createTextNode(`${name.value} : ${email.value}`));
-     userList.appendChild(li);
-
+      localStorage.setItem(name.value,email.value);
      name.value= "";
      email.value= "";
    }
