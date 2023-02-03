@@ -4,6 +4,8 @@ const email = document.querySelector('#email');
 const msg = document.querySelector(".msg");
 const userList = document.querySelector('#user')
 
+
+document.getElementById("items").addEventListener('click', removeItem);
 form.addEventListener("click", onsubmit);
 function onsubmit(e){
     e.preventDefault();
@@ -24,6 +26,17 @@ function onsubmit(e){
   // Append li to list
   document.getElementById("items").appendChild(li);
 
+  var deleteBtn = document.createElement('button');
+
+  // Add classes to del button
+  deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+
+  // Append text node
+  deleteBtn.appendChild(document.createTextNode('X'));
+
+  // Append button to li
+  li.appendChild(deleteBtn);
+
 
     let obj = {
         name : name.value,
@@ -40,4 +53,11 @@ function onsubmit(e){
    }
    }
    
-}  
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+     
+        var li = e.target.parentElement;
+        document.getElementById("items").removeChild(li);
+      }
+    }
+ 
