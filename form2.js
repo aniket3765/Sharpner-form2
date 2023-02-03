@@ -14,7 +14,18 @@ function onsubmit(e){
     setTimeout(()=> msg.remove(),3000);
    } 
    else{
-      let obj = {
+ // Create new li element
+  var li = document.createElement('li');
+  // Add class
+ 
+  // Add text node with input value
+  li.appendChild(document.createTextNode(name.value));
+
+  // Append li to list
+  document.getElementById("items").appendChild(li);
+
+
+    let obj = {
         name : name.value,
         email : email.value
     };
@@ -24,7 +35,9 @@ function onsubmit(e){
      email.value= "";
 
      let obj2 = JSON.parse(localStorage.getItem(newObj));
-     console.log(obj2   );
+     console.log(obj2);
+
+   }
    }
    
 }  
