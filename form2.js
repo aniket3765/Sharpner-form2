@@ -14,9 +14,17 @@ function onsubmit(e){
     setTimeout(()=> msg.remove(),3000);
    } 
    else{
-      localStorage.setItem(name.value,email.value);
+      let obj = {
+        name : name.value,
+        email : email.value
+    };
+    let newObj = JSON.stringify(obj);
+      localStorage.setItem(userNum+1,newObj);
      name.value= "";
      email.value= "";
+
+     let obj2 = JSON.parse(localStorage.getItem(newObj));
+     console.log(obj2   );
    }
    
 }  
