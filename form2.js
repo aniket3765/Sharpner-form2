@@ -6,6 +6,7 @@ const userList = document.querySelector('#user')
 
 
 document.getElementById("items").addEventListener('click', removeItem);
+document.getElementById("items").addEventListener('click', editItem);
 form.addEventListener("click", onsubmit);
 function onsubmit(e){
     e.preventDefault();
@@ -26,15 +27,20 @@ function onsubmit(e){
   // Append li to list
   document.getElementById("items").appendChild(li);
 
-  var deleteBtn = document.createElement('button');
+  var deleteBtn = document.createElement('input');
+  deleteBtn.setAttribute('type','button' );
+  deleteBtn.setAttribute('value','delete');
 
-  // Add classes to del button
-  deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+  var editbtn = document.createElement('input');
+  editbtn.setAttribute('type','button' );
+  editbtn.setAttribute('value','edit');
 
-  // Append text node
-  deleteBtn.appendChild(document.createTextNode('X'));
+  // Add classes to  button
+  editbtn.className = 'btn btn-info btn-sm edit';
+  deleteBtn.className = 'btn btn-danger btn-sm delete';
 
   // Append button to li
+  li.appendChild(editbtn);
   li.appendChild(deleteBtn);
 
 
@@ -43,12 +49,12 @@ function onsubmit(e){
         email : email.value
     };
     let newObj = JSON.stringify(obj);
-      localStorage.setItem(userNum+1,newObj);
+      localStorage.setItem(name.value,newObj);
      name.value= "";
      email.value= "";
 
      let obj2 = JSON.parse(localStorage.getItem(newObj));
-     console.log(obj2);
+     
 
    }
    }
@@ -60,4 +66,14 @@ function removeItem(e){
         document.getElementById("items").removeChild(li);
       }
     }
- 
+    function editItem(e){
+        if(e.target.classList.contains('edit')){
+            let li = e.target.parentElement;
+            let text_node = li.textContent;
+            let obj = JSON.parse(localStorage.getItem(text_node));
+            name.value = obj.name;
+            email.value = obj.email;
+            localStorage.removeItem(text_node);
+            document.getElementById("items").removeChild(li);
+        }
+    }
