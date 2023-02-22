@@ -118,3 +118,20 @@ function removeItem(e){
       
       }
     }
+  function editItem(e){
+        let li = e.target.parentElement;
+    let text_node = li.textContent;
+    document.getElementById("items").removeChild(li);
+        if(e.target.classList.contains('edit')){ axios.get("https://crudcrud.com/api/7c7b09c532bc4fccb7303c4537a160b7/newaniket")
+        .then(res =>{ for(let i=0;i<res.data.length;i++){
+
+            if(res.data[i].name==text_node){
+                console.log(res.data[i].id)
+                axios.delete(`https://crudcrud.com/api/7c7b09c532bc4fccb7303c4537a160b7/newaniket/${res.dat[i].id}`{name:"newNAME",email:"neweamil"})
+                .then( ()=>{console.log('delete success')})
+                .catch(err => console.log(err)); 
+            }
+           }} )
+        .catch(err => console.log(err)); 
+        }
+    }
