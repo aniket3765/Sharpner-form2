@@ -48,12 +48,10 @@ function onsubmit(e){
         name : name.value,
         email : email.value
     };
-    let newObj = JSON.stringify(obj);
-      localStorage.setItem(name.value,newObj);
+       axios.post('https://crudcrud.com/api/7c7b09c532bc4fccb7303c4537a160b7/newaniket',obj);
      name.value= "";
      email.value= "";
 
-     let obj2 = JSON.parse(localStorage.getItem(newObj));
      
 
    }
