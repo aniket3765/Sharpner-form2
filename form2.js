@@ -4,6 +4,44 @@ const email = document.querySelector('#email');
 const msg = document.querySelector(".msg");
 const userList = document.querySelector('#user')
 
+function getAllUser(){
+    axios.get("https://crudcrud.com/api/7c7b09c532bc4fccb7303c4537a160b7/newaniket")
+    .then(res => showOutput(res))
+    .catch(err => console.log(err)); 
+}
+
+function showOutput(res){
+    for(let i=0;i<=res.data.length;i++)
+ {
+    var li = document.createElement('li');
+  // Add class
+ 
+  // Add text node with input value
+  li.appendChild(document.createTextNode(res.data[i].name));
+
+  // Append li to list
+  document.getElementById("items").appendChild(li);
+
+  var deleteBtn = document.createElement('input');
+  deleteBtn.setAttribute('type','button' );
+  deleteBtn.setAttribute('value','delete');
+
+  var editbtn = document.createElement('input');
+  editbtn.setAttribute('type','button' );
+  editbtn.setAttribute('value','edit');
+
+  // Add classes to  button
+  editbtn.className = 'btn btn-info btn-sm edit';
+  deleteBtn.className = 'btn btn-danger btn-sm delete';
+
+  // Append button to li
+  li.appendChild(editbtn);
+  li.appendChild(deleteBtn);}
+
+}
+
+getAllUser();
+
 
 document.getElementById("items").addEventListener('click', removeItem);
 document.getElementById("items").addEventListener('click', editItem);
@@ -48,10 +86,12 @@ function onsubmit(e){
         name : name.value,
         email : email.value
     };
-       axios.post('https://crudcrud.com/api/7c7b09c532bc4fccb7303c4537a160b7/newaniket',obj);
+    axios.post('https://crudcrud.com/api/7c7b09c532bc4fccb7303c4537a160b7/newaniket',obj);
+   
      name.value= "";
      email.value= "";
 
+    
      
 
    }
