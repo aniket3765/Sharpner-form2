@@ -96,22 +96,25 @@ function onsubmit(e){
 
    }
    }
-   
 function removeItem(e){
+   
+    console.log(objs+'res');
+    let li = e.target.parentElement;
+    let text_node = li.textContent;
+    document.getElementById("items").removeChild(li);
+
     if(e.target.classList.contains('delete')){
-     
-        var li = e.target.parentElement;
-        document.getElementById("items").removeChild(li);
+        axios.get("https://crudcrud.com/api/7c7b09c532bc4fccb7303c4537a160b7/newaniket")
+        .then(res =>{ for(let i=0;i<res.data.length;i++){
+
+            if(res.data[i].name==text_node){
+                console.log(res.data[i].id)
+                axios.delete(`https://crudcrud.com/api/7c7b09c532bc4fccb7303c4537a160b7/newaniket/${res.dat[i].id}`)
+                .then( ()=>{console.log('delete success')})
+                .catch(err => console.log(err)); 
+            }
+           }} )
+        .catch(err => console.log(err)); 
+      
       }
-    }
-    function editItem(e){
-        if(e.target.classList.contains('edit')){
-            let li = e.target.parentElement;
-            let text_node = li.textContent;
-            let obj = JSON.parse(localStorage.getItem(text_node));
-            name.value = obj.name;
-            email.value = obj.email;
-            localStorage.removeItem(text_node);
-            document.getElementById("items").removeChild(li);
-        }
     }
