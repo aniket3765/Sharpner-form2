@@ -32,10 +32,10 @@ body, div, h1, form, input, p {
     }
 
     li, input[name=name],[name=email],button[id=add]{
-    width: auto;
+    width: 200px;
     
     height: auto;
-    margin-left: 35%;
+    margin-left: 0%;
     margin-right:10%;
     margin-bottom: 10px;
     padding-left: 5px;

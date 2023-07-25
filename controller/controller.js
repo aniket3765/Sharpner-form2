@@ -1,39 +1,47 @@
 const { query } = require('express');
-const Item = require('../models/item');
+const Expence = require('../models/expence');
 const showItems = require('../public/js/Appointment');
 const querystring = require('querystring'); 
 
-exports.getItem = (req, res, next) => {
-    res.render('Add',{edit:false, item:{}});
+exports.getItem = async (req, res, next) => {
+    const data = await Expence.findAll();
+    
+    res.render('Add',{edit:false, item:{}, data:data});
+    
     
 }
 exports.postItem = (req, res, next) => {
 
     
     const name = req.body.name;
-    const email = req.body.email;
-    console.log(name+' : '+email);
-    Item.create({
-        Name: name,
-        Email:email,
+    const price = req.body.price;
+    const category = req.body.Category
+    console.log(name+' : '+price+" "+category);
+    Expence.create({
+       product: name,
+       price: price,
+       category: category
     }).then(result => res.redirect('/')).catch(error =>{ console.log(error)})
 };
 
 exports.homePage = async (req, res, next) =>{
-    const data = await Item.findAll();
-    res.render('Appointment',{edit:false, data:data});
+    const data = await Expence.findAll();
+    res.render('Add',{edit:false, data:data});
 }
 
  exports.editItem = async (req, res) => {
-    const item = await Item.findAll({where:{id:req.params.id}})
+    const data = await Expence.findAll();
+    const item = await Expence.findAll({where:{id:req.params.id}})
     console.log( req.params.id+"+++what")
-     res.render('Add',{edit:true, item:item[0].dataValues});
+     res.render('Add',{data:data, edit:true, item:item[0].dataValues});
 
  }
 exports.eiditData= async (req, res)=> {
-  await Item.update(
-        {Name:req.body.name,
-        Email:req.body.email
+    console.log('post')
+  await Expence.update(
+        {product:req.body.name,
+        price:req.body.price,
+        category:req.body.Category
         },
        { where:{id:req.params.id}}
     ).then(result => {res.redirect('/')}).catch(err=>{console.log(err)})
@@ -41,7 +49,7 @@ exports.eiditData= async (req, res)=> {
 }
 
 exports.deleteItem = (req, res, next) => {
-    Item.destroy({
+    Expence.destroy({
         where:{id:req.params.id}
     })
     res.redirect('/')
