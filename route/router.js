@@ -4,9 +4,7 @@ const controller = require('../controller/controller');
 
 const router = express();
 router.use(express.json());
-// router.get('/',controller.homePage);
-// router.get('/add',controller.getItem);
-// router.post('/add',(res,req)=>{console.log(res.body.name)})
+
 router.get('/', controller.homePage);
 router.get('/delete/:id',bodyParser.urlencoded(),controller.deleteItem);
 router.get('/edit/:id',bodyParser.urlencoded(),controller.editItem);
