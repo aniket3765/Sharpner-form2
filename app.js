@@ -6,16 +6,15 @@ const router = require('./route/router');
 const path = require('path');
 app.use(router)
 
-app.use(express.static(path.join(__dirname + '/public')));
-app.set('view engine', 'ejs');
+app.use(express.static('public'));
 app.use(
   bodyParser.urlencoded({
-    extended: false,
+    extended: true,
   }),
 );
 
 sequelize.sync({})
 .then(result => {
-    app.listen(4000);
+    app.listen(5000);
 }).catch(err => {console.log(err)})
 

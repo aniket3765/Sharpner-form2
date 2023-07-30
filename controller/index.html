@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Stock Tracker</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+</head>
+<h1>Stock Tracker</h1>
+</head>
+<body>
+    <form id="form" action="/add" method="POST" >
+      <hr>
+       Name:
+      <input type="text" id="name" name="name" required/>
+      descreption:
+      <input type="text" id="descreption" name="descreption" required/>
+       price:
+      <input type="text" id="price" name="price" required/>
+      price:
+      <input type="text" id="quantity"  name="quantity" required/>
+      <button id="add" type="submit">Add</button>
+      </form>
+      
+<ul id="item"></ul>
+<script src="js/index.js"></script> 
+</body>
+</html>

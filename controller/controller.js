@@ -1,55 +1,51 @@
 const { query } = require('express');
-const Expence = require('../models/expence');
-const showItems = require('../public/js/Appointment');
-const querystring = require('querystring'); 
+const Stock = require('../models/Stock');
+
+exports.home = async (req, res) =>{
+
+    res.sendFile(__dirname+'/index.html')
+}
 
 exports.getItem = async (req, res, next) => {
-    const data = await Expence.findAll();
+    const data = await Stock.findAll();
+   
+    res.json(data);
     
-    res.render('Add',{edit:false, item:{}, data:data});
+  //  res.render('Add',{edit:false, item:{}, data:data});
     
     
 }
-exports.postItem = (req, res, next) => {
-
-    
+exports.postItem = (req, res, next) => {   
     const name = req.body.name;
+    const description = req.body.descreption;
     const price = req.body.price;
-    const category = req.body.Category
-    console.log(name+' : '+price+" "+category);
-    Expence.create({
-       product: name,
+    const quantity = req.body.quantity
+    Stock.create({
+       name: name,
+       description:description,
        price: price,
-       category: category
+       quantity: quantity
     }).then(result => res.redirect('/')).catch(error =>{ console.log(error)})
-};
+ };
 
-exports.homePage = async (req, res, next) =>{
-    const data = await Expence.findAll();
-    res.render('Add',{edit:false, data:data});
-}
 
  exports.editItem = async (req, res) => {
-    const data = await Expence.findAll();
-    const item = await Expence.findAll({where:{id:req.params.id}})
-    console.log( req.params.id+"+++what")
-     res.render('Add',{data:data, edit:true, item:item[0].dataValues});
-
+  res.json    (await Stock.findAll({where:{id:req.params.id}}))
  }
 exports.eiditData= async (req, res)=> {
-    console.log('post')
-  await Expence.update(
-        {product:req.body.name,
-        price:req.body.price,
-        category:req.body.Category
+    console.log(req.body)
+    await Stock.update(
+
+        {quantity:req.body.quantity
         },
-       { where:{id:req.params.id}}
+       { where:{id:req.body.id}}
     ).then(result => {res.redirect('/')}).catch(err=>{console.log(err)})
     
 }
 
 exports.deleteItem = (req, res, next) => {
-    Expence.destroy({
+    console.log(req)
+    Stock.destroy({
         where:{id:req.params.id}
     })
     res.redirect('/')
